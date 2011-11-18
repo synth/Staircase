@@ -1,0 +1,46 @@
+module Staircase
+  - a dead simple way to chain functionality - particularly for testing - to keep yourself nice and DRY
+  
+Copyright 2011 - Peter Philips
+
+This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+Example w/ capybara(but the step definitions could be any ruby code):
+ 
+    in spec/support
+      require 'support/staircase'
+      module JobSteps
+
+        define_step :get_started do
+          visit get_started_path
+        end
+  
+        define_step :new_job, :previous => :get_started do
+          click_button "Next"
+        end
+      end
+  
+    In your test:
+      include JobSteps
+      run_step(:new_job) #=> will first run get_started and then new_job
+
+
+Description:
+
+   This module allows you to save and chain groups of code.  For example, if you had a multi-page form.
+   You will probably have a test for each page, but each page builds on the previous one.  You don't need
+   to repeat the tests in each test case(slows!) but you want to repeat the high level functionality
+   So Staircase let's you save test code as a "step" and run it in your tests.  Its recursive so you can 
+   chain steps to your hearts desire.
+   
