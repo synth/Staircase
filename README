@@ -1,4 +1,4 @@
-module Staircase
+module Staircase - v.0.1.0
   - a dead simple way to chain functionality - particularly for testing - to keep yourself nice and DRY
   
 Copyright 2011 - Peter Philips
@@ -16,9 +16,11 @@ This program is free software: you can redistribute it and/or modify
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-Example w/ capybara(but the step definitions could be any ruby code):
- 
-    in spec/support
+Example in 3 easy "steps" - w/ capybara(but the step definitions could be any ruby code):
+
+    1. put "staircase.rb" in spec/support directory(you're using rspec right?)
+    
+    2. in spec/support
       require 'support/staircase'
       module JobSteps
 
@@ -31,7 +33,7 @@ Example w/ capybara(but the step definitions could be any ruby code):
         end
       end
   
-    In your test:
+    3. In your test:
       include JobSteps
       run_step(:new_job) #=> will first run get_started and then new_job
 
